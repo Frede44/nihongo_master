@@ -1,0 +1,427 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>日本語マスター — Aprende Japonés</title>
+    <meta name="description" content="Aprende Hiragana, Katakana y Kanji con flashcards interactivas, quizzes y seguimiento de progreso.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Noto+Sans+JP:wght@300;400;500;700;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <!-- Particle Canvas -->
+    <canvas id="sakura-canvas"></canvas>
+
+    <!-- Navigation -->
+    <nav id="main-nav">
+        <div class="nav-brand" data-page="home">
+            <span class="nav-logo">日</span>
+            <span class="nav-title">NihongoMaster</span>
+        </div>
+        <div class="nav-links">
+            <button class="nav-link active" data-page="home" id="nav-home">
+                <span class="nav-icon">🏠</span>
+                <span class="nav-text">Inicio</span>
+            </button>
+            <button class="nav-link" data-page="hiragana" id="nav-hiragana">
+                <span class="nav-icon">あ</span>
+                <span class="nav-text">Hiragana</span>
+            </button>
+            <button class="nav-link" data-page="katakana" id="nav-katakana">
+                <span class="nav-icon">ア</span>
+                <span class="nav-text">Katakana</span>
+            </button>
+            <button class="nav-link" data-page="kanji" id="nav-kanji">
+                <span class="nav-icon">漢</span>
+                <span class="nav-text">Kanji</span>
+            </button>
+            <button class="nav-link" data-page="vocab" id="nav-vocab">
+                <span class="nav-icon">💬</span>
+                <span class="nav-text">Palabras</span>
+            </button>
+            <button class="nav-link" data-page="flashcards" id="nav-flashcards">
+                <span class="nav-icon">🃏</span>
+                <span class="nav-text">Flashcards</span>
+            </button>
+            <button class="nav-link" data-page="quiz" id="nav-quiz">
+                <span class="nav-icon">📝</span>
+                <span class="nav-text">Quiz</span>
+            </button>
+            <button class="nav-link" data-page="progress" id="nav-progress">
+                <span class="nav-icon">📊</span>
+                <span class="nav-text">Progreso</span>
+            </button>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main id="app-content">
+
+        <!-- ===== HOME PAGE ===== -->
+        <section id="page-home" class="page active">
+            <div class="hero">
+                <div class="hero-badge">日本語を学ぼう</div>
+                <h1 class="hero-title">
+                    <span class="hero-jp">日本語</span>
+                    <span class="hero-sub">マスター</span>
+                </h1>
+                <p class="hero-desc">Domina los tres sistemas de escritura japonesa: <strong>Hiragana</strong>, <strong>Katakana</strong> y <strong>Kanji</strong> con herramientas interactivas.</p>
+            </div>
+            <div class="home-cards">
+                <div class="home-card" data-page="hiragana" id="card-hiragana">
+                    <div class="home-card-icon">あ</div>
+                    <h2>Hiragana</h2>
+                    <p>46 caracteres básicos + combinaciones. El sistema de escritura fundamental.</p>
+                    <div class="home-card-progress">
+                        <div class="progress-bar"><div class="progress-fill" id="home-progress-hiragana"></div></div>
+                        <span class="progress-label" id="home-label-hiragana">0%</span>
+                    </div>
+                    <span class="home-card-arrow">→</span>
+                </div>
+                <div class="home-card" data-page="katakana" id="card-katakana">
+                    <div class="home-card-icon">ア</div>
+                    <h2>Katakana</h2>
+                    <p>46 caracteres para palabras extranjeras y onomatopeyas.</p>
+                    <div class="home-card-progress">
+                        <div class="progress-bar"><div class="progress-fill" id="home-progress-katakana"></div></div>
+                        <span class="progress-label" id="home-label-katakana">0%</span>
+                    </div>
+                    <span class="home-card-arrow">→</span>
+                </div>
+                <div class="home-card" data-page="kanji" id="card-kanji">
+                    <div class="home-card-icon">漢</div>
+                    <h2>Kanji</h2>
+                    <p>50 kanji esenciales del nivel JLPT N5 con lecturas y significados.</p>
+                    <div class="home-card-progress">
+                        <div class="progress-bar"><div class="progress-fill" id="home-progress-kanji"></div></div>
+                        <span class="progress-label" id="home-label-kanji">0%</span>
+                    </div>
+                    <span class="home-card-arrow">→</span>
+                </div>
+                <div class="home-card" data-page="vocab" id="card-vocab">
+                    <div class="home-card-icon">💬</div>
+                    <h2>Palabras</h2>
+                    <p>80+ palabras y frases básicas para situaciones cotidianas.</p>
+                    <div class="home-card-progress">
+                        <div class="progress-bar"><div class="progress-fill" id="home-progress-vocab"></div></div>
+                        <span class="progress-label" id="home-label-vocab">0%</span>
+                    </div>
+                    <span class="home-card-arrow">→</span>
+                </div>
+            </div>
+            <div class="home-quick-actions">
+                <button class="quick-action-btn" data-page="flashcards" id="quick-flashcards">
+                    <span>🃏</span> Practicar con Flashcards
+                </button>
+                <button class="quick-action-btn" data-page="quiz" id="quick-quiz">
+                    <span>📝</span> Tomar un Quiz
+                </button>
+            </div>
+        </section>
+
+        <!-- ===== HIRAGANA PAGE ===== -->
+        <section id="page-hiragana" class="page">
+            <div class="page-header">
+                <h1>ひらがな <span class="page-header-sub">Hiragana</span></h1>
+                <p>El sistema de escritura básico para palabras nativas japonesas.</p>
+            </div>
+            <div class="chart-tabs">
+                <button class="chart-tab active" data-group="basic">Básicos (46)</button>
+                <button class="chart-tab" data-group="dakuten">Dakuten (25)</button>
+                <button class="chart-tab" data-group="combo">Combinaciones (33)</button>
+            </div>
+            <div id="hiragana-chart" class="char-chart"></div>
+        </section>
+
+        <!-- ===== KATAKANA PAGE ===== -->
+        <section id="page-katakana" class="page">
+            <div class="page-header">
+                <h1>カタカナ <span class="page-header-sub">Katakana</span></h1>
+                <p>Usado para palabras extranjeras, nombres propios y onomatopeyas.</p>
+            </div>
+            <div class="chart-tabs">
+                <button class="chart-tab active" data-group="basic">Básicos (46)</button>
+                <button class="chart-tab" data-group="dakuten">Dakuten (25)</button>
+                <button class="chart-tab" data-group="combo">Combinaciones (33)</button>
+            </div>
+            <div id="katakana-chart" class="char-chart"></div>
+        </section>
+
+        <!-- ===== KANJI PAGE ===== -->
+        <section id="page-kanji" class="page">
+            <div class="page-header">
+                <h1>漢字 <span class="page-header-sub">Kanji</span></h1>
+                <p>50 kanji esenciales del nivel JLPT N5.</p>
+            </div>
+            <div class="chart-tabs">
+                <button class="chart-tab active" data-group="numbers">Números</button>
+                <button class="chart-tab" data-group="nature">Naturaleza</button>
+                <button class="chart-tab" data-group="people">Personas</button>
+                <button class="chart-tab" data-group="actions">Acciones</button>
+                <button class="chart-tab" data-group="time">Tiempo</button>
+                <button class="chart-tab" data-group="other">Otros</button>
+            </div>
+            <div id="kanji-chart" class="kanji-grid"></div>
+        </section>
+
+        <!-- ===== VOCABULARY PAGE ===== -->
+        <section id="page-vocab" class="page">
+            <div class="page-header">
+                <h1>💬 <span class="page-header-sub">Palabras Básicas</span></h1>
+                <p>Vocabulario esencial para situaciones cotidianas.</p>
+            </div>
+            <div class="chart-tabs">
+                <button class="chart-tab active" data-vgroup="greetings">Saludos</button>
+                <button class="chart-tab" data-vgroup="family">Familia</button>
+                <button class="chart-tab" data-vgroup="food">Comida</button>
+                <button class="chart-tab" data-vgroup="colors">Colores</button>
+                <button class="chart-tab" data-vgroup="animals">Animales</button>
+                <button class="chart-tab" data-vgroup="body">Cuerpo</button>
+                <button class="chart-tab" data-vgroup="places">Lugares</button>
+                <button class="chart-tab" data-vgroup="objects">Objetos</button>
+                <button class="chart-tab" data-vgroup="adjectives">Adjetivos</button>
+                <button class="chart-tab" data-vgroup="phrases">Frases</button>
+            </div>
+            <div id="vocab-grid" class="vocab-grid"></div>
+        </section>
+
+        <!-- ===== FLASHCARDS PAGE ===== -->
+        <section id="page-flashcards" class="page">
+            <div class="page-header">
+                <h1>🃏 <span class="page-header-sub">Flashcards</span></h1>
+                <p>Practica memorizando caracteres con tarjetas interactivas.</p>
+            </div>
+            <div class="fc-controls">
+                <div class="fc-category-select">
+                    <button class="fc-cat-btn active" data-cat="hiragana" id="fc-cat-hiragana">あ Hiragana</button>
+                    <button class="fc-cat-btn" data-cat="katakana" id="fc-cat-katakana">ア Katakana</button>
+                    <button class="fc-cat-btn" data-cat="kanji" id="fc-cat-kanji">漢 Kanji</button>
+                    <button class="fc-cat-btn" data-cat="vocab" id="fc-cat-vocab">💬 Palabras</button>
+                </div>
+            </div>
+            <div class="fc-area">
+                <button class="fc-nav-btn" id="fc-prev" aria-label="Anterior">‹</button>
+                <div class="fc-card-container" id="fc-card-container">
+                    <div class="fc-card" id="fc-card">
+                        <div class="fc-card-inner">
+                            <div class="fc-card-front">
+                                <span class="fc-char" id="fc-front-char">あ</span>
+                                <span class="fc-hint">Toca para voltear</span>
+                            </div>
+                            <div class="fc-card-back">
+                                <span class="fc-romaji" id="fc-back-romaji">a</span>
+                                <span class="fc-meaning" id="fc-back-meaning"></span>
+                                <span class="fc-extra" id="fc-back-extra"></span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <button class="fc-nav-btn" id="fc-next" aria-label="Siguiente">›</button>
+            </div>
+            <div class="fc-bottom-controls">
+                <span class="fc-counter" id="fc-counter">1 / 46</span>
+                <div class="fc-actions">
+                    <button class="fc-action-btn" id="fc-shuffle" title="Barajar">🔀 Barajar</button>
+                    <button class="fc-action-btn fc-master-btn" id="fc-mark-mastered" title="Marcar como dominado">⭐ Dominado</button>
+                </div>
+            </div>
+        </section>
+
+        <!-- ===== QUIZ PAGE ===== -->
+        <section id="page-quiz" class="page">
+            <div class="page-header">
+                <h1>📝 <span class="page-header-sub">Quiz</span></h1>
+                <p>Pon a prueba tus conocimientos.</p>
+            </div>
+            <!-- Quiz Setup -->
+            <div id="quiz-setup" class="quiz-setup">
+                <div class="quiz-setup-group">
+                    <h3>Categoría</h3>
+                    <div class="quiz-options">
+                        <button class="quiz-opt-btn active" data-qcat="hiragana" id="qcat-hiragana">あ Hiragana</button>
+                        <button class="quiz-opt-btn" data-qcat="katakana" id="qcat-katakana">ア Katakana</button>
+                        <button class="quiz-opt-btn" data-qcat="kanji" id="qcat-kanji">漢 Kanji</button>
+                        <button class="quiz-opt-btn" data-qcat="vocab" id="qcat-vocab">💬 Palabras</button>
+                        <button class="quiz-opt-btn" data-qcat="mixed" id="qcat-mixed">🔀 Mixto</button>
+                    </div>
+                </div>
+                <div class="quiz-setup-group">
+                    <h3>Modo</h3>
+                    <div class="quiz-options">
+                        <button class="quiz-opt-btn active" data-qmode="multiple" id="qmode-multiple">Selección Múltiple</button>
+                        <button class="quiz-opt-btn" data-qmode="typing" id="qmode-typing">Escritura</button>
+                    </div>
+                </div>
+                <div class="quiz-setup-group">
+                    <h3>Preguntas</h3>
+                    <div class="quiz-options">
+                        <button class="quiz-opt-btn" data-qcount="10" id="qcount-10">10</button>
+                        <button class="quiz-opt-btn active" data-qcount="20" id="qcount-20">20</button>
+                        <button class="quiz-opt-btn" data-qcount="50" id="qcount-50">50</button>
+                    </div>
+                </div>
+                <button class="quiz-start-btn" id="quiz-start-btn">🚀 Comenzar Quiz</button>
+            </div>
+            <!-- Quiz Active -->
+            <div id="quiz-active" class="quiz-active" style="display:none;">
+                <div class="quiz-hud">
+                    <div class="quiz-hud-item">
+                        <span class="quiz-hud-label">Pregunta</span>
+                        <span class="quiz-hud-value" id="quiz-qnum">1/20</span>
+                    </div>
+                    <div class="quiz-hud-item">
+                        <span class="quiz-hud-label">Correctas</span>
+                        <span class="quiz-hud-value quiz-correct" id="quiz-score">0</span>
+                    </div>
+                    <div class="quiz-hud-item">
+                        <span class="quiz-hud-label">Racha</span>
+                        <span class="quiz-hud-value quiz-streak" id="quiz-streak">🔥 0</span>
+                    </div>
+                </div>
+                <div class="quiz-progress-bar">
+                    <div class="quiz-progress-fill" id="quiz-progress-fill"></div>
+                </div>
+                <div class="quiz-question-area">
+                    <div class="quiz-char" id="quiz-char">あ</div>
+                    <div class="quiz-prompt" id="quiz-prompt">¿Cuál es la lectura de este carácter?</div>
+                </div>
+                <!-- Multiple choice answers -->
+                <div class="quiz-answers" id="quiz-answers">
+                    <button class="quiz-answer-btn" id="quiz-ans-0">a</button>
+                    <button class="quiz-answer-btn" id="quiz-ans-1">i</button>
+                    <button class="quiz-answer-btn" id="quiz-ans-2">u</button>
+                    <button class="quiz-answer-btn" id="quiz-ans-3">e</button>
+                </div>
+                <!-- Typing answer -->
+                <div class="quiz-typing" id="quiz-typing" style="display:none;">
+                    <input type="text" class="quiz-input" id="quiz-input" placeholder="Escribe la lectura..." autocomplete="off" spellcheck="false">
+                    <button class="quiz-submit-btn" id="quiz-submit">Verificar</button>
+                </div>
+                <div class="quiz-feedback" id="quiz-feedback"></div>
+            </div>
+            <!-- Quiz Results -->
+            <div id="quiz-results" class="quiz-results" style="display:none;">
+                <div class="quiz-results-card">
+                    <div class="quiz-results-emoji" id="quiz-results-emoji">🎉</div>
+                    <h2 id="quiz-results-title">¡Excelente!</h2>
+                    <div class="quiz-results-score">
+                        <span class="quiz-results-num" id="quiz-results-score">18</span>
+                        <span class="quiz-results-sep">/</span>
+                        <span class="quiz-results-total" id="quiz-results-total">20</span>
+                    </div>
+                    <p class="quiz-results-pct" id="quiz-results-pct">90%</p>
+                    <div class="quiz-results-stats">
+                        <div class="quiz-stat">
+                            <span class="quiz-stat-num" id="quiz-results-best-streak">5</span>
+                            <span class="quiz-stat-label">Mejor racha</span>
+                        </div>
+                        <div class="quiz-stat">
+                            <span class="quiz-stat-num" id="quiz-results-avg-time">2.3s</span>
+                            <span class="quiz-stat-label">Tiempo promedio</span>
+                        </div>
+                    </div>
+                    <div class="quiz-results-actions">
+                        <button class="quiz-start-btn" id="quiz-retry-btn">🔄 Intentar de nuevo</button>
+                        <button class="quiz-start-btn secondary" id="quiz-back-btn">← Cambiar opciones</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ===== PROGRESS PAGE ===== -->
+        <section id="page-progress" class="page">
+            <div class="page-header">
+                <h1>📊 <span class="page-header-sub">Progreso</span></h1>
+                <p>Tu avance en cada sistema de escritura.</p>
+            </div>
+            <div class="progress-overview">
+                <div class="progress-stat-card" id="progress-card-total">
+                    <div class="progress-stat-ring">
+                        <svg viewBox="0 0 120 120">
+                            <circle cx="60" cy="60" r="52" class="ring-bg"/>
+                            <circle cx="60" cy="60" r="52" class="ring-fill" id="ring-total"/>
+                        </svg>
+                        <span class="ring-label" id="ring-label-total">0%</span>
+                    </div>
+                    <h3>Total</h3>
+                    <p id="progress-total-detail">0 / 142 caracteres</p>
+                </div>
+                <div class="progress-stat-card">
+                    <div class="progress-stat-ring">
+                        <svg viewBox="0 0 120 120">
+                            <circle cx="60" cy="60" r="52" class="ring-bg"/>
+                            <circle cx="60" cy="60" r="52" class="ring-fill ring-hiragana" id="ring-hiragana"/>
+                        </svg>
+                        <span class="ring-label" id="ring-label-hiragana">0%</span>
+                    </div>
+                    <h3>Hiragana</h3>
+                    <p id="progress-hiragana-detail">0 / 46 caracteres</p>
+                </div>
+                <div class="progress-stat-card">
+                    <div class="progress-stat-ring">
+                        <svg viewBox="0 0 120 120">
+                            <circle cx="60" cy="60" r="52" class="ring-bg"/>
+                            <circle cx="60" cy="60" r="52" class="ring-fill ring-katakana" id="ring-katakana"/>
+                        </svg>
+                        <span class="ring-label" id="ring-label-katakana">0%</span>
+                    </div>
+                    <h3>Katakana</h3>
+                    <p id="progress-katakana-detail">0 / 46 caracteres</p>
+                </div>
+                <div class="progress-stat-card">
+                    <div class="progress-stat-ring">
+                        <svg viewBox="0 0 120 120">
+                            <circle cx="60" cy="60" r="52" class="ring-bg"/>
+                            <circle cx="60" cy="60" r="52" class="ring-fill ring-kanji" id="ring-kanji"/>
+                        </svg>
+                        <span class="ring-label" id="ring-label-kanji">0%</span>
+                    </div>
+                    <h3>Kanji</h3>
+                    <p id="progress-kanji-detail">0 / 50 caracteres</p>
+                </div>
+                <div class="progress-stat-card">
+                    <div class="progress-stat-ring">
+                        <svg viewBox="0 0 120 120">
+                            <circle cx="60" cy="60" r="52" class="ring-bg"/>
+                            <circle cx="60" cy="60" r="52" class="ring-fill ring-vocab" id="ring-vocab"/>
+                        </svg>
+                        <span class="ring-label" id="ring-label-vocab">0%</span>
+                    </div>
+                    <h3>Palabras</h3>
+                    <p id="progress-vocab-detail">0 / 80 palabras</p>
+                </div>
+            </div>
+            <div class="progress-mastered-section">
+                <h2>Caracteres Dominados</h2>
+                <div class="mastered-tabs">
+                    <button class="mastered-tab active" data-mtab="hiragana">あ Hiragana</button>
+                    <button class="mastered-tab" data-mtab="katakana">ア Katakana</button>
+                    <button class="mastered-tab" data-mtab="kanji">漢 Kanji</button>
+                    <button class="mastered-tab" data-mtab="vocab">💬 Palabras</button>
+                </div>
+                <div id="mastered-grid" class="mastered-grid">
+                    <p class="mastered-empty">Aún no has dominado ningún carácter. ¡Usa las flashcards o el quiz para empezar!</p>
+                </div>
+            </div>
+            <div class="progress-actions">
+                <button class="reset-btn" id="reset-progress-btn">🗑️ Reiniciar Progreso</button>
+            </div>
+        </section>
+    </main>
+
+    <!-- Character Detail Modal -->
+    <div class="modal-overlay" id="char-modal" style="display:none;">
+        <div class="modal-card">
+            <button class="modal-close" id="modal-close">✕</button>
+            <div class="modal-char" id="modal-char">あ</div>
+            <div class="modal-romaji" id="modal-romaji">a</div>
+            <div class="modal-details" id="modal-details"></div>
+            <button class="fc-action-btn fc-master-btn modal-master-btn" id="modal-master-btn">⭐ Marcar como dominado</button>
+        </div>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>
